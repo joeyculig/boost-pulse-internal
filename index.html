@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boost Pulse - Customer Forum</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts for standard sans fallbacks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for iconic symbols -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="min-h-screen text-black flex justify-center items-center py-6 px-4 bg-gradient-to-br from-zinc-900 via-neutral-800 to-zinc-950">
+
+    <!-- Simulated Mobile/Tablet Device Container based on BoostMobileApp.jpg layout -->
+    <div class="w-full max-w-md bg-white rounded-[40px] shadow-2xl border-[10px] border-zinc-900 overflow-hidden flex flex-col relative aspect-[9/19] min-h-[820px]">
+        
+        <!-- Phone Notch / Dynamic Island Simulator -->
+        <div class="absolute top-0 inset-x-0 h-7 bg-white z-50 flex justify-between items-center px-6 text-xs boost-bold-text select-none text-black">
+            <span>9:41</span>
+            <div class="w-24 h-4 bg-black rounded-full absolute left-1/2 -translate-x-1/2 top-1"></div>
+            <div class="flex gap-1.5 items-center">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+        </div>
+
+        <!-- App Top Bar Matching Screenshot Headers -->
+        <header class="pt-8 px-5 pb-4 bg-white border-b border-neutral-100 flex justify-between items-center z-40">
+            <!-- Brand Logo Integration from boostlogo.png -->
+            <div class="flex flex-col select-none w-20 -ml-2">
+                <img src="Assets/boostlogo.png" alt="Boost Mobile Logo" class="h-5 w-auto object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-orange-600 font-extrabold text-sm tracking-tighter italic leading-none\'>boost</span><span class=\'text-black font-extrabold text-sm tracking-tighter italic leading-none\'>mobile</span>';">
+            </div>
+            
+            <!-- Quick point balance & Notifications -->
+            <div class="flex items-center gap-3">
+                <div class="bg-orange-50 border border-orange-200 rounded-full py-1 px-3 flex items-center gap-1.5 transition-all duration-300" id="point-counter-pill">
+                    <span class="text-black boost-bold-text text-sm" id="point-total">1000</span>
+                    <span class="text-[10px] text-black boost-bold-text uppercase">pts</span>
+                </div>
+                <!-- Interactive settings & Info icons modeled from screenshot -->
+                <button onclick="showInfoModal()" class="text-black hover:text-orange-600 transition-colors p-1 relative" title="Help & Info">
+                    <i class="fa-regular fa-circle-question text-lg"></i>
+                </button>
+                <button onclick="showHistoryModal()" class="text-black hover:text-orange-600 transition-colors p-1" title="Notification Log">
+                    <i class="fa-regular fa-bell text-lg"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Scrollable App Screen Viewport -->
+        <main class="flex-1 overflow-y-auto px-5 py-4 bg-white pb-6" id="main-scroll-viewport">
+            
+            <!-- TASKS PAGE VIEW (Main Default Feed) -->
+            <section id="page-tasks" class="space-y-6">
+                <div>
+                    <!-- Upgraded Headline Size via Guidelines -->
+                    <h1 class="text-orange-600 text-5xl boost-italic-heading leading-none tracking-tight">
+                        BOOST PULSE
+                    </h1>
+                    <!-- Custom thin-weight description tracking -->
+                    <p class="text-xs text-black mt-2 leading-relaxed boost-roman-subtext">
+                        Complete daily and weekly tasks to earn credit towards Boost Mobile's Loyalty Program
+                    </p>
+                </div>
+
+                <!-- List of actionable tasks inside the workspace -->
+                <div class="space-y-4">
+                    
+                    <!-- Task Card 1: Take Weekly Survey -->
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-2xl p-4 shadow-sm relative overflow-hidden" id="task-card-survey">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="bg-orange-100 text-orange-600 text-[10px] px-2.5 py-1 rounded-full boost-bold-text uppercase tracking-wider">
+                                    +50 Points
+                                </span>
+                                <h3 class="text-base boost-bold-text text-black mt-2">Take Weekly Survey</h3>
+                            </div>
+                        </div>
+                        <!-- Survey Description: Set to ultra-light font weight -->
+                        <p class="text-xs text-black mb-4 leading-relaxed boost-roman-subtext">
+                            Take this Week's Survey Regarding the Internship Experience
+                        </p>
+                        <button id="action-btn-survey" onclick="openSurveyWidget()" class="w-full bg-transparent border-2 border-black rounded-lg py-2 px-4 boost-bold-text text-xs text-black inline-flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-colors">
+                            Begin Survey <span class="text-xs">→</span>
+                        </button>
+                        <div id="completed-badge-survey" class="hidden absolute inset-0 bg-white/95 backdrop-blur-xs flex flex-col justify-center items-center text-center p-4">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xl mb-1 shadow-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm boost-bold-text text-black">Task Completed!</span>
+                            <span class="text-[10px] text-black boost-roman-subtext">+50 Points rewarded to your wallet</span>
+                        </div>
+                    </div>
+
+                    <!-- Task Card 2: Speed Test -->
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-2xl p-4 shadow-sm relative overflow-hidden" id="task-card-speed">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="bg-orange-100 text-orange-600 text-[10px] px-2.5 py-1 rounded-full boost-bold-text uppercase tracking-wider">
+                                    +10 Points
+                                </span>
+                                <h3 class="text-base boost-bold-text text-black mt-2">Submit Network Speed Test</h3>
+                            </div>
+                        </div>
+                        <!-- Speed Test Description: Set to ultra-light font weight -->
+                        <p class="text-xs text-black mb-4 leading-relaxed boost-roman-subtext">
+                            Simulate and measure your Boost network throughput instantly. Help us optimize our towers!
+                        </p>
+                        <button id="action-btn-speed" onclick="openSpeedTestWidget()" class="w-full bg-transparent border-2 border-black rounded-lg py-2 px-4 boost-bold-text text-xs text-black inline-flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-colors">
+                            Launch Speed Test <span class="text-xs">→</span>
+                        </button>
+                        <div id="completed-badge-speed" class="hidden absolute inset-0 bg-white/95 backdrop-blur-xs flex flex-col justify-center items-center text-center p-4">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xl mb-1 shadow-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm boost-bold-text text-black">Task Completed!</span>
+                            <span class="text-[10px] text-black boost-roman-subtext">+10 Points rewarded to your wallet</span>
+                        </div>
+                    </div>
+
+                    <!-- Task Card 3: Suggestion / Feedback Submit -->
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-2xl p-4 shadow-sm relative overflow-hidden" id="task-card-suggestion">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="bg-orange-100 text-orange-600 text-[10px] px-2.5 py-1 rounded-full boost-bold-text uppercase tracking-wider">
+                                    +5 Points
+                                </span>
+                                <h3 class="text-base boost-bold-text text-black mt-2">Submit Product Suggestion</h3>
+                            </div>
+                        </div>
+                        <!-- Suggestion Description: Set to ultra-light font weight -->
+                        <p class="text-xs text-black mb-4 leading-relaxed boost-roman-subtext">
+                            Pitch custom suggestions, feature improvements, app upgrades, or quality optimization ideas.
+                        </p>
+                        <button id="action-btn-suggestion" onclick="openSuggestionWidget()" class="w-full bg-transparent border-2 border-black rounded-lg py-2 px-4 boost-bold-text text-xs text-black inline-flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-colors">
+                            Submit Suggestion <span class="text-xs">→</span>
+                        </button>
+                        <div id="completed-badge-suggestion" class="hidden absolute inset-0 bg-white/95 backdrop-blur-xs flex flex-col justify-center items-center text-center p-4">
+                            <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xl mb-1 shadow-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm boost-bold-text text-black">Suggestion Shared!</span>
+                            <span class="text-[10px] text-black boost-roman-subtext">+5 Points rewarded to your wallet</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- LOYALTY SHOP PAGE VIEW -->
+            <section id="page-loyalty" class="space-y-6 hidden">
+                <div>
+                    <h1 class="text-orange-600 text-5xl boost-italic-heading leading-none tracking-tight">
+                        LOYALTY DEALS
+                    </h1>
+                    <p class="text-xs text-black mt-2 leading-relaxed boost-roman-subtext">
+                        Redeem points earned through Boost Pulse in Boost Mobile's Loyalty Program
+                    </p>
+                </div>
+
+                <!-- Custom Dedicated Loyalty Balance Widget (Visually decoupled from layout) -->
+                <div class="bg-orange-500 text-black p-4 rounded-3xl flex justify-between items-center shadow-md">
+                    <div>
+                        <span class="text-[10px] boost-bold-text uppercase tracking-widest text-black">Loyalty Points Balance</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-3xl boost-bold-text text-black" id="store-point-total">80</span>
+                        <span class="text-[10px] boost-bold-text text-black uppercase ml-1">pts</span>
+                    </div>
+                </div>
+
+                <!-- Reward Store Grid Catalog Layout -->
+                <div class="grid grid-cols-2 gap-3">
+                    
+                    <!-- Reward Card 1: Device Upgrade -->
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-3xl p-3.5 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                        <div>
+                            <span class="bg-orange-500 text-black text-[9px] px-2 py-0.5 rounded-full boost-bold-text uppercase tracking-wider inline-block">
+                                1,000 Pts
+                            </span>
+                            <h3 class="text-sm boost-bold-text text-black mt-2 leading-tight">Device Upgrade</h3>
+                            <p class="text-[10.5px] text-black mt-1.5 leading-relaxed boost-roman-subtext">
+                                Apply toward your next premium 5G handset lease or handset purchase.
+                            </p>
+                        </div>
+                        <button onclick="requestRedeem('Device Upgrade', 1000)" class="w-full mt-4 bg-transparent border-2 border-black rounded-xl py-2 px-3 boost-bold-text text-[10px] text-black uppercase hover:bg-black hover:text-white transition-all">
+                            Redeem
+                        </button>
+                    </div>
+
+                    <!-- Reward Card 2: Sling TV Day Pass -->
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-3xl p-3.5 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                        <div>
+                            <span class="bg-orange-500 text-black text-[9px] px-2 py-0.5 rounded-full boost-bold-text uppercase tracking-wider inline-block">
+                                250 Pts
+                            </span>
+                            <h3 class="text-sm boost-bold-text text-black mt-2 leading-tight">Sling TV Pass</h3>
+                            <p class="text-[10.5px] text-black mt-1.5 leading-relaxed boost-roman-subtext">
+                                Get 24 hours of live sports, news, and entertainment channels.
+                            </p>
+                        </div>
+                        <button onclick="requestRedeem('Sling TV Day Pass', 250)" class="w-full mt-4 bg-transparent border-2 border-black rounded-xl py-2 px-3 boost-bold-text text-[10px] text-black uppercase hover:bg-black hover:text-white transition-all">
+                            Redeem
+                        </button>
+                    </div>
+
+                    <!-- Reward Card 3: Hotspot Reward -->
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-3xl p-3.5 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                        <div>
+                            <span class="bg-orange-500 text-black text-[9px] px-2 py-0.5 rounded-full boost-bold-text uppercase tracking-wider inline-block">
+                                1,000 Pts
+                            </span>
+                            <h3 class="text-sm boost-bold-text text-black mt-2 leading-tight">Hotspot Reward</h3>
+                            <p class="text-[10.5px] text-black mt-1.5 leading-relaxed boost-roman-subtext">
+                                Add 10GB of high-speed mobile hotspot sharing data to your active cellular plan.
+                            </p>
+                        </div>
+                        <button onclick="requestRedeem('Hotspot Reward', 1000)" class="w-full mt-4 bg-transparent border-2 border-black rounded-xl py-2 px-3 boost-bold-text text-[10px] text-black uppercase hover:bg-black hover:text-white transition-all">
+                            Redeem
+                        </button>
+                    </div>
+
+                    <!-- Reward Card 4: Add International Roaming -->
+                    <div class="bg-neutral-50 border border-neutral-100 rounded-3xl p-3.5 flex flex-col justify-between shadow-sm relative overflow-hidden">
+                        <div>
+                            <span class="bg-orange-500 text-black text-[9px] px-2 py-0.5 rounded-full boost-bold-text uppercase tracking-wider inline-block">
+                                1,000 Pts
+                            </span>
+                            <h3 class="text-sm boost-bold-text text-black mt-2 leading-tight">Roaming Pass</h3>
+                            <p class="text-[10.5px] text-black mt-1.5 leading-relaxed boost-roman-subtext">
+                                Add a temporary worldwide data cellular pass for global coverage.
+                            </p>
+                        </div>
+                        <button onclick="requestRedeem('Add International Roaming', 1000)" class="w-full mt-4 bg-transparent border-2 border-black rounded-xl py-2 px-3 boost-bold-text text-[10px] text-black uppercase hover:bg-black hover:text-white transition-all">
+                            Redeem
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- App Bottom Tab Navigation Bar -->
+        <nav class="bg-white border-t border-neutral-100 py-3 px-6 flex justify-around items-center z-40 select-none">
+            <button onclick="switchTab('tasks')" id="tab-btn-tasks" class="flex flex-col items-center gap-1 text-orange-600 transition-all duration-300">
+                <i class="fa-solid fa-list-check text-lg"></i>
+                <span class="text-[10px] boost-bold-text uppercase tracking-wider">Tasks</span>
+            </button>
+            <button onclick="switchTab('loyalty')" id="tab-btn-loyalty" class="flex flex-col items-center gap-1 text-black hover:text-orange-600 transition-all duration-300">
+                <i class="fa-solid fa-gift text-lg"></i>
+                <span class="text-[10px] boost-bold-text uppercase tracking-wider">Loyalty</span>
+            </button>
+        </nav>
+
+        <!-- Interactive Speed Test Modal overlay -->
+        <div id="modal-speed-test" class="hidden absolute inset-0 bg-black z-50 flex flex-col p-6 text-white justify-between">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mt-4">
+                <span class="text-xs boost-bold-text uppercase tracking-wider text-orange-500">Pulse Speed Diagnostics</span>
+                <button onclick="closeModal('modal-speed-test')" class="text-white hover:text-orange-500 p-1 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Dashboard gauge dial -->
+            <div class="flex-1 flex flex-col justify-center items-center py-6">
+                <!-- Gauge Outer -->
+                <div class="relative w-56 h-56 rounded-full border-[8px] border-zinc-800 flex flex-col justify-center items-center transition-all duration-300" id="speed-dial-ring">
+                    <!-- Spinning glowing scanner element -->
+                    <div id="dial-scanner" class="absolute inset-0 rounded-full border-[8px] border-transparent border-t-orange-500 animate-spin hidden"></div>
+                    
+                    <span class="text-white boost-bold-text text-xs uppercase tracking-widest" id="speed-phase-label">Ready</span>
+                    <span class="text-4xl boost-bold-text mt-1 tracking-tight" id="speed-counter-val">0.0</span>
+                    <span class="text-white text-[10px] boost-bold-text uppercase tracking-wider" id="speed-unit">Mbps</span>
+                </div>
+
+                <!-- Numerical logs -->
+                <div class="grid grid-cols-3 gap-6 w-full mt-8 max-w-xs text-center">
+                    <div class="bg-zinc-900 p-2.5 rounded-xl border border-zinc-800">
+                        <span class="text-[9px] text-white boost-bold-text block uppercase">Ping</span>
+                        <span class="text-sm boost-bold-text text-orange-500" id="ping-val">--</span> <span class="text-[8px] text-white boost-roman-subtext">ms</span>
+                    </div>
+                    <div class="bg-zinc-900 p-2.5 rounded-xl border border-zinc-800">
+                        <span class="text-[9px] text-white boost-bold-text block uppercase">Download</span>
+                        <span class="text-sm boost-bold-text text-white" id="dl-val">--</span> <span class="text-[8px] text-white boost-roman-subtext">Mb/s</span>
+                    </div>
+                    <div class="bg-zinc-900 p-2.5 rounded-xl border border-zinc-800">
+                        <span class="text-[9px] text-white boost-bold-text block uppercase">Upload</span>
+                        <span class="text-sm boost-bold-text text-white" id="ul-val">--</span> <span class="text-[8px] text-white boost-roman-subtext">Mb/s</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2.5 mb-6">
+                <button id="start-speedtest-btn" onclick="runDiagnosticTest()" class="w-full bg-orange-600 hover:bg-orange-700 text-white boost-bold-text py-3 rounded-xl transition-all shadow-md tracking-wider text-xs uppercase">
+                    Test My Coverage
+                </button>
+                <p class="text-[9.5px] text-white text-center leading-relaxed boost-roman-subtext">
+                    Test uses actual simulated server packets representing a 5G environment. Submitting results awards +10 points instantly.
+                </p>
+            </div>
+        </div>
+
+        <!-- Interactive Multi-step Survey Overlay (Now Dynamic) -->
+        <div id="modal-survey" class="hidden absolute inset-0 bg-white z-50 flex flex-col p-6 text-black justify-between">
+            <div class="flex justify-between items-center border-b border-neutral-100 pb-3 mt-4">
+                <span class="text-xs boost-bold-text uppercase tracking-wider text-orange-600">Pulse Survey Panel</span>
+                <button onclick="closeModal('modal-survey')" class="text-black hover:text-orange-600 p-1 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Dynamic Survey Interactive Body Container -->
+            <div class="flex-1 flex flex-col justify-center py-4 space-y-4">
+                <!-- Step Index Header -->
+                <div class="flex justify-between items-center text-xs boost-bold-text text-black border-b border-neutral-100 pb-2">
+                    <span class="boost-roman-subtext">Topic: Internship Experience</span>
+                    <span id="survey-step-num" class="text-orange-600">Step 1 of 7</span>
+                </div>
+
+                <!-- Dynamic Render Area for active question -->
+                <div id="survey-question-box" class="space-y-4 flex-1 flex flex-col justify-center">
+                    <!-- JavaScript dynamically injects active markup configuration here -->
+                </div>
+            </div>
+
+            <!-- Survey navigation controls -->
+            <div class="space-y-2.5 mb-6">
+                <button id="survey-next-btn" onclick="progressSurvey()" class="w-full bg-orange-600 hover:bg-orange-700 text-white boost-bold-text py-3 rounded-xl transition-all shadow-md tracking-wider text-xs uppercase" disabled>
+                    Proceed Forward
+                </button>
+                <div class="flex justify-between items-center text-[10px] text-black boost-bold-text px-2">
+                    <span class="boost-roman-subtext">* Requires accurate, honest input</span>
+                    <span class="boost-bold-text">Submit grants +50 points</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Suggestion/Feedback Submit Overlay -->
+        <div id="modal-suggestion" class="hidden absolute inset-0 bg-white z-50 flex flex-col p-6 text-black justify-between">
+            <div class="flex justify-between items-center border-b border-neutral-100 pb-3 mt-4">
+                <span class="text-xs boost-bold-text uppercase tracking-wider text-orange-600">Pulse Suggestion Center</span>
+                <button onclick="closeModal('modal-suggestion')" class="text-black hover:text-orange-600 p-1 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable Suggestion Form Area -->
+            <div class="flex-1 overflow-y-auto py-4 space-y-4">
+                <h4 class="text-lg boost-bold-text text-black">
+                    What should Boost build next?
+                </h4>
+                <p class="text-xs text-black leading-relaxed boost-roman-subtext">
+                    We review submissions daily. The top 3 user ideas voted by the community at month-end get added to our feature roadmap!
+                </p>
+
+                <div class="space-y-3 pt-2">
+                    <div>
+                        <label class="text-[10px] uppercase boost-bold-text tracking-wider text-black block mb-1">Feedback Category</label>
+                        <select id="suggest-category" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl p-3 boost-bold-text text-xs outline-none focus:border-orange-500">
+                            <option value="Network Coverage">Cellular / Network Coverage</option>
+                            <option value="Billing Plan">Billing & Payment Plans</option>
+                            <option value="App Feature">Mobile App Improvements</option>
+                            <option value="Retail Store">Boost Store & Retail Services</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] uppercase boost-bold-text tracking-wider text-black block mb-1">Your Pitch / Summary Title</label>
+                        <input id="suggest-title" type="text" placeholder="Provide a summary of your suggestion" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl p-3 boost-roman-subtext text-xs outline-none focus:border-orange-500">
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] uppercase boost-bold-text tracking-wider text-black block mb-1">Elaborate Ideas</label>
+                        <textarea id="suggest-details" rows="4" placeholder="Briefly describe what you would love to experience..." class="w-full bg-neutral-50 border border-neutral-200 rounded-xl p-3 boost-roman-subtext text-xs outline-none focus:border-orange-500 resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2 mb-6">
+                <button onclick="submitSuggestion()" class="w-full bg-orange-600 hover:bg-orange-700 text-white boost-bold-text py-3 rounded-xl transition-all shadow-md tracking-wider text-xs uppercase">
+                    Submit Idea (+5 points)
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Information Modal (What is Boost Pulse?) -->
+        <div id="modal-info" class="hidden absolute inset-0 bg-black/95 backdrop-blur-md z-[100] flex flex-col justify-center items-center p-6 text-white text-center">
+            <div class="w-16 h-16 rounded-2xl bg-orange-600 text-white flex items-center justify-center text-3xl mb-4 shadow-lg">
+                <i class="fa-solid fa-circle-nodes"></i>
+            </div>
+            <h3 class="text-xl boost-bold-text text-white">About Boost Pulse</h3>
+            <p class="text-xs text-white max-w-xs leading-relaxed mt-2.5 boost-roman-subtext">
+                Boost Pulse is an internal customer forum and tool giving you discounted services, credits, and partner vouchers directly from Dish and Sling.
+            </p>
+            <p class="text-[11px] text-white max-w-xs mt-3 boost-roman-subtext">
+                Complete diagnostic tests, provide suggestions, or answer surveys. Earn points to reduce your phone bills completely!
+            </p>
+            <button onclick="closeModal('modal-info')" class="mt-6 border-2 border-white text-white boost-bold-text py-2 px-6 rounded-lg hover:bg-white hover:text-black transition-all text-xs tracking-wider uppercase">
+                Got It
+            </button>
+        </div>
+
+        <!-- System Log Notification History Modal -->
+        <div id="modal-history" class="hidden absolute inset-0 bg-black/95 backdrop-blur-md z-[100] flex flex-col justify-center items-center p-6 text-white">
+            <div class="w-full max-w-xs bg-zinc-950 border border-zinc-800 rounded-3xl p-5 text-center relative overflow-hidden">
+                <h3 class="text-base boost-bold-text mb-3">System Pulse Log</h3>
+                <div id="history-logs-container" class="space-y-2 text-left text-xs max-h-52 overflow-y-auto mb-4 px-1">
+                    <div class="text-[10px] text-white py-1 text-center boost-roman-subtext">No transactions yet</div>
+                </div>
+                <button onclick="closeModal('modal-history')" class="w-full bg-orange-600 text-white boost-bold-text py-2 rounded-xl text-xs hover:bg-orange-700 transition-colors uppercase">
+                    Close Log
+                </button>
+            </div>
+        </div>
+
+        <!-- Confirm Redemption Overlay Modal (Centered Dialog Box Backdrop) -->
+        <div id="modal-redeem-confirm" class="hidden absolute inset-0 bg-black/60 backdrop-blur-xs z-[110] flex justify-center items-center p-5 select-none animate-[fadeIn_0.2s_ease-out]">
+            <!-- Inner Modal Card Component -->
+            <div class="bg-white w-full max-w-[290px] rounded-[32px] p-6 shadow-2xl border border-neutral-100 flex flex-col items-center text-center">
+                <div class="w-12 h-12 rounded-2xl bg-orange-600 text-white flex items-center justify-center text-xl mb-3.5 shadow-md">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <h3 class="text-base boost-bold-text text-black">Confirm Redemption</h3>
+                <p class="text-[11px] text-black/80 mt-2.5 leading-relaxed boost-roman-subtext" id="redeem-prompt-text">
+                    Are you sure you want to trade your points for this reward?
+                </p>
+                <div class="flex flex-col gap-2 w-full mt-5">
+                    <button onclick="confirmRedeem()" class="w-full bg-orange-600 text-white boost-bold-text py-2.5 rounded-xl text-[10.5px] hover:bg-orange-700 transition-colors uppercase tracking-wider">
+                        Claim Reward
+                    </button>
+                    <button onclick="closeModal('modal-redeem-confirm')" class="w-full border border-neutral-300 text-black boost-bold-text py-2.5 rounded-xl text-[10.5px] hover:bg-neutral-50 transition-colors uppercase tracking-wider">
+                        Cancel Action
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification system slider -->
+        <div id="toast" class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black text-white py-2.5 px-4 rounded-xl shadow-lg border border-zinc-800 text-xs boost-bold-text flex items-center gap-2 select-none pointer-events-none transform translate-y-20 opacity-0 transition-all duration-300 z-[200]">
+            <span id="toast-icon" class="text-orange-500">✓</span>
+            <span id="toast-msg">Success!</span>
+        </div>
+
+    </div>
+
+<script src="app.js"></script>
+</body>
+</html>
