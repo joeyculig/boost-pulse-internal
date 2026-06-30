@@ -46,14 +46,21 @@
                     <span class="text-[10px] text-black boost-bold-text uppercase">pts</span>
                 </div>
                 <!-- Interactive settings & Info icons modeled from screenshot -->
-                <button onclick="showInfoModal()" class="text-black hover:text-orange-600 transition-colors p-1 relative" title="Help & Info">
-                    <i class="fa-regular fa-circle-question text-lg"></i>
+                <button id="btn-support" onclick="showInfoModal()" class="text-black hover:text-orange-600 transition-colors p-1 relative" title="Help & Info">
+                     <i class="fa-regular fa-circle-question text-lg"></i>
                 </button>
                 <button onclick="showHistoryModal()" class="text-black hover:text-orange-600 transition-colors p-1" title="Notification Log">
                     <i class="fa-regular fa-bell text-lg"></i>
                 </button>
             </div>
         </header>
+
+        <div id="dev-reset-drawer" class="hidden bg-neutral-900 border-b border-neutral-800 px-5 py-3 flex justify-between items-center text-[10px] z-30 relative">
+        <span class="text-zinc-400 font-mono">Sandbox: v6.0-Dev</span>
+        <button id="dev-reset-btn" class="bg-red-500/20 hover:bg-red-600 hover:text-white text-red-400 font-bold px-3 py-1 rounded-md transition-all uppercase tracking-wider">
+            Wipe & Reset App State
+        </button>
+        </div>
 
         <!-- Main Scrollable App Screen Viewport -->
         <main class="flex-1 overflow-y-auto px-5 py-4 bg-white pb-6" id="main-scroll-viewport">
