@@ -1,0 +1,43 @@
+/* Baseline body assignment to corporate Roman typography */
+        body {
+            font-family: 'Neue Haas Grotesk Text Pro 55 Roman', 'Inter', sans-serif;
+            font-weight: 300;
+            background-color: #121212;
+        }
+        
+        /* Headline corporate font definition */
+        .boost-italic-heading {
+            font-family: 'Druk Super Italic', 'Impact', 'Arial Black', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+        }
+
+        /* Enforcing an ultra-light, clean un-emboldened standard */
+        .boost-roman-subtext {
+            font-family: 'Neue Haas Grotesk Text Pro 55 Roman', 'Inter', sans-serif !important;
+            font-weight: 300 !important;
+            letter-spacing: 0.01em;
+        }
+
+        /* Bold text configuration mapping */
+        .boost-bold-text {
+            font-family: 'Neue Haas Grotesk Text Pro 75 Bold', 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
