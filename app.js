@@ -686,6 +686,62 @@ async function submitSuggestion() {
             document.getElementById(modalId).classList.add('hidden');
         }
 
+        // =========================================================================
+        // SECRET DEVELOPER SANDBOX RESET TOOL CODES
+        // =========================================================================
+        function toggleDevDrawer() {
+            const drawer = document.getElementById('dev-reset-drawer');
+            if (drawer) {
+                drawer.classList.toggle('hidden');
+            }
+        }
+
+        function resetAppState() {
+            // 1. Permanently erase cached state variations on user's device browser memory
+            localStorage.removeItem("boost_pulse_state_v6");
+
+            // 2. Clear out your core running validation verification checking indicators
+            state.points = 1000;
+            state.completedToday.speed = false;
+            state.completedToday.survey = false;
+            state.completedToday.suggestion = false;
+            state.logs = ["Account memory purged • Sandboxed testing reset active"];
+
+            // 3. Force all text elements, indicators, and badges to instantly update
+            updatePointsUI();
+            
+            // Re-hide your visual completion checkmark badges across your dashboard layout panels
+            const speedBadge = document.getElementById('completed-badge-speed');
+            const surveyBadge = document.getElementById('completed-badge-survey');
+            const suggBadge = document.getElementById('completed-badge-suggestion');
+            
+            if (speedBadge) speedBadge.classList.add('hidden');
+            if (surveyBadge) surveyBadge.classList.add('hidden');
+            if (suggBadge) suggBadge.classList.add('hidden');
+
+            // Force the custom dynamic targeted survey campaign wizard back to index position 1
+            currentSurveyStep = 1;
+
+            // 4. Trigger visual toast parameters to confirm execution success
+            triggerToast("App states unlocked! Test away.", "↺");
+            
+            // Automatically close the secret panel after wiping data
+            toggleDevDrawer();
+        }
+
+       // --- Core Startup Window Boot Binding Procedures ---
         window.onload = function() {
             loadSavedState();
+
+            // Bind the secret question mark icon click listener to toggle the developer drawer
+            const supportBtn = document.getElementById('btn-support');
+            if (supportBtn) {
+                supportBtn.addEventListener('click', toggleDevDrawer);
+            }
+
+            // Bind the actual developer data reset action runner execution step
+            const devResetBtn = document.getElementById('dev-reset-btn');
+            if (devResetBtn) {
+                devResetBtn.addEventListener('click', resetAppState);
+            }
         };
